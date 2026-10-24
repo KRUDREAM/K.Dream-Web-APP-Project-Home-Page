@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenEdu Public - แพลตฟอร์มการเรียนรู้และสอบออนไลน์</title>
+    <title>OpenEdu Core - Hi-Tech Learning & Exam Platform</title>
     <!-- Tailwind CSS with Dark Mode -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,47 +12,71 @@
         }
     </script>
     <!-- Google Fonts (Prompt) -->
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Supabase JS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: 'Prompt', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .glow-effect {
+            box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.3);
+        }
+        .dark .glow-effect {
+            box-shadow: 0 0 50px -10px rgba(14, 165, 233, 0.2);
+        }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-blue-500 selection:text-white transition-colors duration-300">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-blue-500 selection:text-white transition-colors duration-300 relative overflow-x-hidden">
+
+    <!-- Hi-Tech Background Glow Blobs -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[350px] bg-gradient-to-tr from-blue-500/10 via-cyan-500/10 to-indigo-500/0 blur-[120px] pointer-events-none -z-10"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#3b82f608_1px,transparent_1px),linear-gradient(to_bottom,#3b82f608_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none -z-10"></div>
 
     <!-- Navigation Bar -->
-    <nav class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 transition-colors">
+    <nav class="sticky top-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-800/80 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <!-- Logo & Brand (สามารถเปลี่ยนเป็นรูปภาพโลโก้สถาบันทีหลังได้ตรงนี้) -->
+            <div class="flex justify-between h-18 items-center">
+                <!-- Logo & Brand -->
                 <div class="flex items-center space-x-3">
-                    <div class="bg-gradient-to-tr from-blue-600 to-sky-500 text-white p-2.5 rounded-xl font-bold text-lg shadow-md shadow-blue-500/20">
-                        <i class="fa-solid fa-graduation-cap"></i>
+                    <div class="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 text-white shadow-lg shadow-blue-500/30">
+                        <i class="fa-solid fa-microchip text-lg"></i>
+                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white dark:border-slate-950 animate-pulse"></div>
                     </div>
-                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">OpenEdu Public</span>
+                    <div>
+                        <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-400 bg-clip-text text-transparent">OpenEdu</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 ml-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-cyan-400 border border-blue-500/20">SYSTEM v2.0</span>
+                    </div>
                 </div>
                 
                 <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600 dark:text-slate-300">
-                    <a href="#features" class="hover:text-blue-600 dark:hover:text-sky-400 transition">คุณสมบัติ</a>
-                    <a href="#free-courses" class="hover:text-blue-600 dark:hover:text-sky-400 transition">คอร์สตัวอย่าง</a>
+                    <a href="#features" class="hover:text-blue-600 dark:hover:text-cyan-400 transition">คุณสมบัติระบบ</a>
+                    <a href="#free-courses" class="hover:text-blue-600 dark:hover:text-cyan-400 transition">คอร์สเรียน</a>
                 </div>
 
                 <div class="flex items-center space-x-3">
                     <!-- Theme Toggle -->
-                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-sky-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="สลับโหมดมืด/สว่าง">
+                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-cyan-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition border border-slate-200 dark:border-slate-800" title="สลับโหมดมืด/สว่าง">
                         <i id="themeIcon" class="fa-solid fa-moon"></i>
                     </button>
 
                     <!-- Auth Status -->
                     <div id="authNavArea" class="flex items-center space-x-3">
-                        <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-sky-400 transition">
+                        <button onclick="openAuthModal('login')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-cyan-400 transition">
                             เข้าสู่ระบบ
                         </button>
-                        <button onclick="openAuthModal('register')" class="px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-sky-500 dark:hover:bg-sky-600 rounded-xl shadow-lg shadow-blue-500/20 transition">
-                            สมัครสมาชิกฟรี
+                        <button onclick="openAuthModal('register')" class="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 rounded-xl shadow-lg shadow-blue-500/25 transition transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-bolt mr-1.5"></i> สมัครสมาชิกฟรี
                         </button>
                     </div>
                 </div>
@@ -63,123 +87,168 @@
     <!-- PUBLIC LANDING VIEW -->
     <div id="publicView">
         <!-- Hero Section -->
-        <header class="relative overflow-hidden pt-20 pb-24 lg:pt-32 lg:pb-36 bg-gradient-to-b from-blue-50/50 to-transparent dark:from-slate-900/50 dark:to-transparent">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center max-w-3xl">
-                <span class="inline-flex items-center px-3.5 py-1.5 text-xs font-semibold text-blue-700 dark:text-sky-300 bg-blue-50 dark:bg-blue-950/60 rounded-full mb-6 border border-blue-100 dark:border-blue-900/50 shadow-sm">
-                    <i class="fa-solid fa-shield-halved mr-2 text-sky-500"></i> ปลอดภัยด้วยระบบยืนยันตัวตนมาตรฐาน PDPA
-                </span>
-                <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight mb-6">
-                    แพลตฟอร์มการเรียนรู้และสอบออนไลน์ <br><span class="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">เปิดให้ใช้งานฟรีสำหรับทุกคน</span>
+        <header class="relative pt-24 pb-28 lg:pt-36 lg:pb-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center max-w-4xl">
+                <div class="inline-flex items-center px-4 py-2 text-xs font-bold text-blue-600 dark:text-cyan-400 bg-blue-500/10 dark:bg-cyan-500/10 rounded-full mb-8 border border-blue-500/20 dark:border-cyan-500/20 shadow-inner">
+                    <i class="fa-solid fa-satellite-dish mr-2 animate-ping"></i> Next-Gen Cloud Learning & CBT Examination Suite
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-8 text-slate-900 dark:text-white">
+                    ศูนย์กลางการศึกษา <br>
+                    <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-400 bg-clip-text text-transparent">ขับเคลื่อนด้วยเทคโนโลยีแห่งอนาคต</span>
                 </h1>
-                <p class="text-lg text-slate-600 dark:text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto">
-                    สร้างบัญชีผู้ใช้งานเพื่อเข้าถึงบทเรียนตัวอย่าง ทดลองทำข้อสอบจำลอง และเก็บประวัติผลการทดสอบส่วนตัวได้อย่างอิสระ
+                <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-12 leading-relaxed max-w-2xl mx-auto">
+                    ระบบจัดการคอร์สเรียนและศูนย์สอบจำลองอัจฉริยะ ความปลอดภัยสูง รองรับผู้ใช้งานเต็มรูปแบบ เปิดให้เข้าถึงฟรีอย่างไร้รอยต่อ
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="openAuthModal('register')" class="px-8 py-4 text-base font-bold text-white bg-blue-600 hover:bg-blue-700 dark:bg-sky-500 dark:hover:bg-sky-600 rounded-2xl shadow-xl shadow-blue-500/25 transition transform hover:-translate-y-0.5">
-                        <i class="fa-solid fa-user-plus mr-2"></i> สมัครสมาชิก (ฟรี)
+                    <button onclick="openAuthModal('register')" class="px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 rounded-2xl shadow-xl shadow-blue-500/30 transition transform hover:-translate-y-1">
+                        <i class="fa-solid fa-rocket mr-2"></i> เริ่มต้นใช้งานฟรีทันที
                     </button>
-                    <button onclick="openAuthModal('login')" class="px-8 py-4 text-base font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm transition">
-                        เข้าสู่ระบบ
+                    <button onclick="openAuthModal('login')" class="px-8 py-4 text-base font-bold text-slate-700 dark:text-slate-200 glass-card hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm transition">
+                        <i class="fa-solid fa-key mr-2"></i> เข้าสู่ระบบพอร์ทัล
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- Course Preview -->
-        <section id="free-courses" class="py-20 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800 transition-colors">
+        <!-- Features Grid -->
+        <section id="features" class="py-24 border-t border-slate-200/60 dark:border-slate-800/80 bg-white/40 dark:bg-slate-900/40">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-xl mx-auto mb-12">
-                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-3">คอร์สเรียนตัวอย่าง</h2>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm">ตัวอย่างเนื้อหาที่คุณสามารถเข้าถึงได้ทันทีหลังเข้าสู่ระบบ</p>
+                <div class="text-center max-w-xl mx-auto mb-16">
+                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-3">สมรรถนะอันทรงพลัง</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">ออกแบบตามหลักสถาปัตยกรรมซอฟต์แวร์ยุคใหม่ เพื่อประสบการณ์ที่ดีที่สุด</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-sm hover:shadow-md transition">
-                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-sky-400 rounded-xl flex items-center justify-center text-xl mb-4">
+                    <div class="glass-card p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-blue-500/5 hover:border-blue-500/50 transition duration-300 group">
+                        <div class="w-14 h-14 bg-blue-500/10 text-blue-600 dark:text-cyan-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-900 dark:text-white">Supabase Cloud Security</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">ยืนยันตัวตนด้วยระบบเข้ารหัสมาตรฐานสากล แยกข้อมูลปลอดภัย 100% พร้อมระบบบันทึกโปรไฟล์อัตโนมัติ</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-blue-500/5 hover:border-cyan-500/50 transition duration-300 group">
+                        <div class="w-14 h-14 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-bolt-lightning"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-900 dark:text-white">Real-Time Performance</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">โหลดไว ตอบสนองรวดเร็วทันใจ รองรับการใช้งานผ่านอุปกรณ์ทุกรูปแบบด้วย Responsive Design ล้ำสมัย</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-blue-500/5 hover:border-indigo-500/50 transition duration-300 group">
+                        <div class="w-14 h-14 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition duration-300">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-slate-900 dark:text-white">Smart Dashboard</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">แดชบอร์ดส่วนตัวติดตามความคืบหน้าคอร์สเรียน สถานะระดับชั้น และประวัติการทดสอบอย่างเป็นระบบ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Preview -->
+        <section id="free-courses" class="py-24 border-t border-slate-200/60 dark:border-slate-800/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-xl mx-auto mb-16">
+                    <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-3">คอร์สเรียนตัวอย่าง</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">คลังบทเรียนตัวอย่างสำหรับผู้ที่สมัครสมาชิกเข้าสู่ระบบ</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-card p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-lg hover:shadow-2xl transition group">
+                        <div class="h-40 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white text-4xl mb-6 shadow-md group-hover:scale-[1.02] transition duration-300">
                             <i class="fa-solid fa-code"></i>
                         </div>
                         <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Python Programming 101</h3>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6">เรียนรู้พื้นฐานการเขียนโปรแกรมไพธอนตั้งแต่เริ่มต้น</p>
-                        <button onclick="requireLoginMessage()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition text-sm shadow-sm">เข้าเรียน</button>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">เรียนรู้พื้นฐานการเขียนโปรแกรมไพธอนตั้งแต่เริ่มต้นจนใช้งานจริง</p>
+                        <button onclick="requireLoginMessage()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition text-sm shadow-md shadow-blue-500/20">เข้าสู่บทเรียน</button>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-sm hover:shadow-md transition">
-                        <div class="w-12 h-12 bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400 rounded-xl flex items-center justify-center text-xl mb-4">
+                    <div class="glass-card p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-lg hover:shadow-2xl transition group">
+                        <div class="h-40 rounded-2xl bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center text-white text-4xl mb-6 shadow-md group-hover:scale-[1.02] transition duration-300">
                             <i class="fa-solid fa-square-root-variable"></i>
                         </div>
                         <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Intensive Math Concepts</h3>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6">ทบทวนหลักการทางคณิตศาสตร์เข้มข้นพร้อมโจทย์</p>
-                        <button onclick="requireLoginMessage()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition text-sm shadow-sm">เข้าเรียน</button>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">ทบทวนหลักการทางคณิตศาสตร์เข้มข้น พร้อมเทคนิคคิดลัด</p>
+                        <button onclick="requireLoginMessage()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition text-sm shadow-md shadow-blue-500/20">เข้าสู่บทเรียน</button>
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-sm hover:shadow-md transition">
-                        <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center text-xl mb-4">
+                    <div class="glass-card p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-lg hover:shadow-2xl transition group">
+                        <div class="h-40 rounded-2xl bg-gradient-to-tr from-cyan-600 to-teal-500 flex items-center justify-center text-white text-4xl mb-6 shadow-md group-hover:scale-[1.02] transition duration-300">
                             <i class="fa-solid fa-dna"></i>
                         </div>
                         <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Biology Essentials</h3>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm mb-6">สรุปชีววิทยาฉบับเข้าใจง่าย สำหรับเตรียมสอบแข่งขัน</p>
-                        <button onclick="requireLoginMessage()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition text-sm shadow-sm">เข้าเรียน</button>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">สรุปชีววิทยาฉบับเข้าใจง่าย เหมาะสำหรับเตรียมสอบแข่งขัน</p>
+                        <button onclick="requireLoginMessage()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition text-sm shadow-md shadow-blue-500/20">เข้าสู่บทเรียน</button>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- STUDENT DASHBOARD VIEW (ซ่อนไว้เมื่อยังไม่ล็อกอิน) -->
-    <div id="dashboardView" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl shadow-blue-500/5 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center">
+    <!-- STUDENT DASHBOARD VIEW -->
+    <div id="dashboardView" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-200/80 dark:border-slate-800 shadow-2xl shadow-blue-500/10 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
             <div>
-                <span class="text-blue-600 dark:text-sky-400 font-bold text-xs uppercase tracking-widest bg-blue-50 dark:bg-blue-950 px-3 py-1 rounded-full">Student Portal</span>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-2">สวัสดีคุณ <span id="userNameDisplay" class="text-blue-600 dark:text-sky-400">ผู้ใช้งาน</span> 👋</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">โรงเรียน: <span id="userSchoolDisplay">-</span> | ระดับชั้น: <span id="userGradeDisplay">-</span></p>
+                <span class="inline-flex items-center text-cyan-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-widest bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20 mb-3">
+                    <i class="fa-solid fa-circle-user mr-1.5"></i> Student Portal Active
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">ยินดีต้อนรับ, <span id="userNameDisplay" class="bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent">ผู้ใช้งาน</span> 👋</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">โรงเรียน: <span id="userSchoolDisplay" class="font-semibold text-slate-700 dark:text-slate-200">-</span> | ระดับชั้น: <span id="userGradeDisplay" class="font-semibold text-slate-700 dark:text-slate-200">-</span></p>
             </div>
-            <button onclick="handleLogout()" class="mt-4 md:mt-0 px-5 py-2.5 bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400 hover:bg-red-100 font-semibold text-sm rounded-2xl transition">
+            <button onclick="handleLogout()" class="mt-6 md:mt-0 px-6 py-3 bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 font-bold text-sm rounded-2xl border border-red-500/20 transition flex items-center shadow-sm">
                 <i class="fa-solid fa-right-from-bracket mr-2"></i> ออกจากระบบ
             </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-4 flex items-center">
-                    <i class="fa-solid fa-book-open text-blue-600 dark:text-sky-400 mr-2.5"></i> คอร์สเรียนของคุณ
+            <div class="glass-card p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-6 flex items-center">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-cyan-400 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    คอร์สเรียนของคุณ
                 </h3>
-                <div class="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/60 dark:border-slate-700">
-                    <h4 class="font-bold text-slate-800 dark:text-slate-200">Python Programming 101</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">สถานะ: กำลังเรียนรู้ (บทที่ 1)</p>
+                <div class="p-5 bg-slate-100/80 dark:bg-slate-900/80 rounded-2xl border border-slate-200/60 dark:border-slate-800">
+                    <h4 class="font-bold text-slate-800 dark:text-slate-200 text-base">Python Programming 101</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 flex items-center">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> สถานะ: กำลังศึกษา (บทที่ 1)
+                    </p>
                 </div>
             </div>
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-4 flex items-center">
-                    <i class="fa-solid fa-id-card text-blue-600 dark:text-sky-400 mr-2.5"></i> ข้อมูลผู้ใช้งาน
+            <div class="glass-card p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xl">
+                <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-6 flex items-center">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    ข้อมูลบัญชีผู้ใช้
                 </h3>
-                <div class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                    <p><strong>อีเมล:</strong> <span id="userEmailDisplay">-</span></p>
-                    <p><strong>เบอร์โทรศัพท์:</strong> <span id="userPhoneDisplay">-</span></p>
+                <div class="space-y-3 text-sm text-slate-600 dark:text-slate-300 bg-slate-100/80 dark:bg-slate-900/80 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-800">
+                    <p class="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-2"><strong>อีเมล:</strong> <span id="userEmailDisplay" class="text-slate-800 dark:text-slate-200">-</span></p>
+                    <p class="flex justify-between pt-1"><strong>เบอร์โทรศัพท์:</strong> <span id="userPhoneDisplay" class="text-slate-800 dark:text-slate-200">-</span></p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- AUTH MODAL (Login / Register) -->
-    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 my-8">
-            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-                <i class="fa-solid fa-xmark text-xl"></i>
+    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-card rounded-3xl max-w-lg w-full p-8 sm:p-10 shadow-2xl relative border border-slate-200/80 dark:border-slate-800 my-8 glow-effect">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-white transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             
-            <div id="modalTitle" class="text-2xl font-extrabold text-slate-900 dark:text-white mb-1">เข้าสู่ระบบ</div>
-            <p id="modalSubtitle" class="text-slate-500 dark:text-slate-400 text-sm mb-6">กรอกข้อมูลของคุณเพื่อเข้าใช้งานระบบ</p>
+            <div id="modalTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2">เข้าสู่ระบบ</div>
+            <p id="modalSubtitle" class="text-slate-500 dark:text-slate-400 text-sm mb-8">กรอกข้อมูลประจำตัวของคุณเพื่อเข้าสู่ระบบพอร์ทัล</p>
 
-            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-5">
                 
-                <!-- ฟิลด์เพิ่มเติมสำหรับการสมัครสมาชิก -->
-                <div id="registerExtraFields" class="hidden space-y-4">
+                <!-- Extra Register Fields -->
+                <div id="registerExtraFields" class="hidden space-y-5">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">ชื่อ - สกุล</label>
-                        <input type="text" id="regFullName" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="เช่น นายสมชาย เรียนดี">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">ชื่อ - สกุล</label>
+                        <input type="text" id="regFullName" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="เช่น นายสมชาย เรียนดี">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">ระดับชั้น</label>
-                            <select id="regGrade" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">ระดับชั้น</label>
+                            <select id="regGrade" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
                                 <option value="ป.4">ป.4</option>
                                 <option value="ป.5">ป.5</option>
                                 <option value="ป.6">ป.6</option>
@@ -193,96 +262,92 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">เบอร์โทรศัพท์</label>
-                            <input type="tel" id="regPhone" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="0812345678">
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">เบอร์โทรศัพท์</label>
+                            <input type="tel" id="regPhone" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="0812345678">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">โรงเรียน / สถาบันการศึกษา</label>
-                        <input type="text" id="regSchool" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="เช่น โรงเรียนสวนกุหลาบวิทยาลัย">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">โรงเรียน / สถาบันการศึกษา</label>
+                        <input type="text" id="regSchool" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="เช่น โรงเรียนสวนกุหลาบวิทยาลัย">
                     </div>
                 </div>
 
-                <!-- อีเมล -->
+                <!-- Email -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">อีเมล</label>
-                    <input type="email" id="authEmail" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="name@example.com">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">อีเมล</label>
+                    <input type="email" id="authEmail" required class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="name@example.com">
                 </div>
 
-                <!-- รหัสผ่าน -->
+                <!-- Password -->
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">รหัสผ่าน</label>
-                    <input type="password" id="authPassword" required minlength="6" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="อย่างน้อย 6 ตัวอักษร">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">รหัสผ่าน</label>
+                    <input type="password" id="authPassword" required minlength="6" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="อย่างน้อย 6 ตัวอักษร">
                 </div>
 
-                <!-- ยืนยันรหัสผ่าน (เฉพาะสมัครสมาชิก) -->
+                <!-- Confirm Password -->
                 <div id="confirmPasswordGroup" class="hidden">
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">ยืนยันรหัสผ่านอีกรอบ</label>
-                    <input type="password" id="authConfirmPassword" minlength="6" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="กรอกรหัสผ่านอีกครั้ง">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">ยืนยันรหัสผ่านอีกรอบ</label>
+                    <input type="password" id="authConfirmPassword" minlength="6" class="w-full px-4 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="กรอกรหัสผ่านอีกครั้ง">
                 </div>
 
-                <!-- นโยบายความเป็นส่วนตัว (เฉพาะสมัครสมาชิก) -->
-                <div id="privacyPolicyGroup" class="hidden flex items-start space-x-2 pt-1">
-                    <input type="checkbox" id="privacyCheckbox" required class="mt-1 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
-                    <label class="text-xs text-slate-500 dark:text-slate-400">
-                        ฉันยอมรับ <button type="button" onclick="openPrivacyModal()" class="text-blue-600 dark:text-sky-400 underline font-medium">นโยบายความเป็นส่วนตัว (PDPA)</button> และเงื่อนไขการใช้งานระบบ
+                <!-- Privacy Policy Checkbox -->
+                <div id="privacyPolicyGroup" class="hidden flex items-start space-x-3 pt-2">
+                    <input type="checkbox" id="privacyCheckbox" required class="mt-1 w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                    <label class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                        ฉันยอมรับ <button type="button" onclick="openPrivacyModal()" class="text-blue-600 dark:text-cyan-400 underline font-semibold">นโยบายความเป็นส่วนตัว (PDPA)</button> และเงื่อนไขการใช้งานระบบ
                     </label>
                 </div>
 
-                <button type="submit" id="authSubmitBtn" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 dark:bg-sky-500 dark:hover:bg-sky-600 text-white font-bold rounded-2xl transition shadow-lg shadow-blue-500/20 text-sm mt-2">
+                <button type="submit" id="authSubmitBtn" class="w-full py-4 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold rounded-2xl transition shadow-xl shadow-blue-500/25 text-sm mt-3">
                     เข้าสู่ระบบ
                 </button>
             </form>
 
-            <div class="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
+            <div class="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
                 <span id="authSwitchText">ยังไม่มีบัญชีใช่ไหม?</span>
-                <button onclick="toggleAuthMode()" id="authSwitchBtn" class="text-blue-600 dark:text-sky-400 font-bold hover:underline ml-1">สมัครสมาชิก</button>
+                <button onclick="toggleAuthMode()" id="authSwitchBtn" class="text-blue-600 dark:text-cyan-400 font-bold hover:underline ml-1">สมัครสมาชิก</button>
             </div>
         </div>
     </div>
 
-    <!-- PRIVACY POLICY MODAL (ฉบับยาวและเป็นทางการขึ้น) -->
-    <div id="privacyModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 max-h-[85vh] flex flex-col">
-            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-white">นโยบายความเป็นส่วนตัว (Privacy Policy)</h3>
-                <button onclick="closePrivacyModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-                    <i class="fa-solid fa-xmark text-lg"></i>
+    <!-- PRIVACY POLICY MODAL -->
+    <div id="privacyModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative border border-slate-200/80 dark:border-slate-800 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center">
+                    <i class="fa-solid fa-shield-cat text-cyan-500 mr-2.5"></i> นโยบายความเป็นส่วนตัว (Privacy Policy)
+                </h3>
+                <button onclick="closePrivacyModal()" class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             
-            <div class="overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 pr-2 leading-relaxed">
-                <p><strong>ประกาศความเป็นส่วนตัว:</strong> แพลตฟอร์ม OpenEdu ให้ความสำคัญและตระหนักถึงความสำคัญในการคุ้มครองข้อมูลส่วนบุคคลของคุณ นโยบายฉบับนี้อธิบายถึงวิธีที่เราเก็บรวบรวม ใช้ เปิดเผย และปกป้องข้อมูลส่วนบุคคลของคุณตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล (PDPA)</p>
+            <div class="overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 pr-3 leading-relaxed">
+                <p><strong>ประกาศความเป็นส่วนตัว:</strong> แพลตฟอร์ม OpenEdu ให้ความสำคัญและตระหนักถึงความสำคัญในการคุ้มครองข้อมูลส่วนบุคคลของคุณ ตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล (PDPA)</p>
                 
                 <div>
                     <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">1. ข้อมูลส่วนบุคคลที่เราจัดเก็บ</h4>
-                    <p>ในการสมัครสมาชิกและใช้งานระบบ เราจะทำการจัดเก็บข้อมูลที่จำเป็น ได้แก่ ชื่อ-นามสกุล, ระดับชั้น (ป.4 - ม.6 หรืออื่นๆ), โรงเรียน/สถาบันการศึกษา, เบอร์โทรศัพท์ และที่อยู่อีเมลของคุณ</p>
+                    <p>ในการสมัครสมาชิกและใช้งานระบบ เราจะทำการจัดเก็บข้อมูล ได้แก่ ชื่อ-นามสกุล, ระดับชั้น (ป.4 - ม.6 หรืออื่นๆ), โรงเรียน, เบอร์โทรศัพท์ และอีเมลของคุณ</p>
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">2. วัตถุประสงค์ในการเก็บรวบรวมและใช้ข้อมูล</h4>
+                    <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">2. วัตถุประสงค์ในการเก็บรวบรวม</h4>
                     <ul class="list-disc list-inside space-y-1 pl-1">
-                        <li>เพื่อการสร้างบัญชีผู้ใช้งาน ยืนยันตัวตน และจัดการสิทธิ์การเข้าสู่ระบบแพลตฟอร์มการเรียนการสอน</li>
-                        <li>เพื่อติดตามความคืบหน้าในการเรียน คอร์สเรียน และบันทึกประวัติคะแนนการทำข้อสอบจำลอง</li>
-                        <li>เพื่อการติดต่อสื่อสาร แจ้งประกาศสำคัญ หรือประชาสัมพันธ์ข่าวสารคอร์สเรียนของสถาบัน</li>
-                        <li>เพื่อการพัฒนา ปรับปรุงระบบความปลอดภัย และป้องกันการกระทำผิดเงื่อนไขการใช้งาน</li>
+                        <li>เพื่อสร้างบัญชีผู้ใช้งาน ยืนยันตัวตน และจัดการสิทธิ์การเข้าถึงระบบการเรียนการสอน</li>
+                        <li>เพื่อติดตามความคืบหน้าคอร์สเรียน และบันทึกประวัติผลคะแนนการทำข้อสอบจำลอง</li>
+                        <li>เพื่อการติดต่อสื่อสาร แจ้งประกาศสำคัญ หรือประชาสัมพันธ์ข่าวสารของสถาบัน</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">3. ความปลอดภัยและการเปิดเผยข้อมูล</h4>
-                    <p>ข้อมูลส่วนบุคคลของคุณจะถูกจัดเก็บไว้อย่างปลอดภัยผ่านระบบฐานข้อมูลมาตรฐาน (Supabase) ที่มีมาตรการรักษาความปลอดภัยขั้นสูง เราจะไม่เปิดเผย ขาย หรือแลกเปลี่ยนข้อมูลของคุณให้แก่บุคคลภายนอก ยกเว้นกรณีที่ได้รับความยินยอมจากคุณโดยตรงหรือเป็นไปตามหน้าที่ทางกฎหมาย</p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">4. สิทธิของเจ้าของข้อมูลส่วนบุคคล</h4>
-                    <p>คุณมีสิทธิในการขอเข้าถึง ขอรับสำเนา ขอแก้ไขข้อมูลส่วนบุคคลให้ถูกต้องสมบูรณ์ รวมถึงสิทธิในการขอลบหรือระงับการใช้ข้อมูลส่วนบุคคลของคุณได้ตลอดเวลาโดยติดต่อผู้ดูแลระบบ</p>
+                    <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">3. ความปลอดภัยของข้อมูล</h4>
+                    <p>ข้อมูลของคุณจะถูกจัดเก็บอย่างปลอดภัยผ่านระบบ Supabase Cloud Database ที่มีมาตรการรักษาความปลอดภัยขั้นสูง ไม่มีการเปิดเผยต่อสาธารณะ</p>
                 </div>
             </div>
 
             <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
-                <button onclick="closePrivacyModal()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl text-sm transition shadow-md">เข้าใจและยอมรับนโยบาย</button>
+                <button onclick="closePrivacyModal()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-2xl text-sm transition shadow-lg shadow-blue-500/20">เข้าใจและยอมรับนโยบาย</button>
             </div>
         </div>
     </div>
@@ -335,7 +400,7 @@
                 const meta = session.user.user_metadata || {};
                 authNavArea.innerHTML = `
                     <span class="text-sm font-semibold text-slate-700 dark:text-slate-300 hidden sm:inline">${meta.full_name || session.user.email}</span>
-                    <button onclick="handleLogout()" class="px-4 py-2 text-sm font-semibold text-red-600 bg-red-50 dark:bg-red-950/50 hover:bg-red-100 rounded-xl transition">ออกจากระบบ</button>
+                    <button onclick="handleLogout()" class="px-4 py-2 text-sm font-semibold text-red-600 bg-red-500/10 hover:bg-red-500/20 rounded-xl transition border border-red-500/20">ออกจากระบบ</button>
                 `;
                 publicView.classList.add('hidden');
                 dashboardView.classList.remove('hidden');
@@ -347,8 +412,8 @@
                 document.getElementById('userPhoneDisplay').innerText = meta.phone || '-';
             } else {
                 authNavArea.innerHTML = `
-                    <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-sky-400 transition">เข้าสู่ระบบ</button>
-                    <button onclick="openAuthModal('register')" class="px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-sky-500 dark:hover:bg-sky-600 rounded-xl shadow-lg shadow-blue-500/20 transition">สมัครสมาชิกฟรี</button>
+                    <button onclick="openAuthModal('login')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-cyan-400 transition">เข้าสู่ระบบ</button>
+                    <button onclick="openAuthModal('register')" class="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 rounded-xl shadow-lg shadow-blue-500/25 transition">สมัครสมาชิกฟรี</button>
                 `;
                 publicView.classList.remove('hidden');
                 dashboardView.classList.add('hidden');
@@ -384,7 +449,7 @@
 
             if (isRegisterMode) {
                 title.innerText = "สร้างบัญชีผู้ใช้ใหม่";
-                sub.innerText = "กรอกข้อมูลส่วนตัวเพื่อสมัครสมาชิกฟรี";
+                sub.innerText = "กรอกข้อมูลส่วนตัวเพื่อเริ่มต้นใช้งานฟรี";
                 btn.innerText = "สมัครสมาชิก";
                 switchText.innerText = "มีบัญชีอยู่แล้วใช่ไหม?";
                 switchBtn.innerText = "เข้าสู่ระบบ";
@@ -393,7 +458,7 @@
                 privacyGroup.classList.remove('hidden');
             } else {
                 title.innerText = "เข้าสู่ระบบ";
-                sub.innerText = "กรอกอีเมลและรหัสผ่านของคุณเพื่อเข้าใช้งาน";
+                sub.innerText = "กรอกข้อมูลประจำตัวของคุณเพื่อเข้าสู่ระบบพอร์ทัล";
                 btn.innerText = "เข้าสู่ระบบ";
                 switchText.innerText = "ยังไม่มีบัญชีใช่ไหม?";
                 switchBtn.innerText = "สมัครสมาชิก";
